@@ -1,45 +1,39 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "lab1.h"
-
-#define SIZE 5
+#include "lab2.h"
 
 int main(void)
 {
-	int array[SIZE] = {-513,-198,0,63,160};
-	float avgResult = 0;
-	int sumResult = 0;
-	
-	printf("\nHere's your array:\n");
-	for(int i = 0; i < SIZE; i++)
-	{
-		printf("array[%d] = %d\n",i,array[i]);
-	}
-	printf("\n");
-	
-	
-	
-	float averageTesting = 0;
-	for(int j = 0; j < SIZE; j++)
-	{
-		averageTesting = averageTesting + array [j];
-	}
-	averageTesting = averageTesting / SIZE;
-	
-	getAverage(array, SIZE, &avgResult);
-	printf("The average of the array should be: %f\nThe value returned by getAverage is: %f\n\n",averageTesting,avgResult);
-	
-	
-	int sumTesting = 0;
-	for(int i = 0; i < SIZE; i++) 
-	{
-		if(array[i] > 0) 
+	int *array = NULL; //Declare a pointer to an integer and initialize it to NULL
+    int size = 5; //Size of the array
+    int multiplicand = 2; //Multiplicand for multiplyEven
+
+    //Make the array
+    int makeArrayResult = makeArray(&array, size); //Allocate memory for the array
+    if (makeArrayResult == 0) //Check if the array allocation is successful
+    {
+        initArray(array, size);
+		
+		array[0] = -4;
+		array[1] = 5;
+		array[2] = 0;
+		array[3] = 2;
+		array[4] = -7;
+		
+		printf("\nModifying the array in main...\n");
+		for(int j = 0; j < size; j++)
 		{
-			sumTesting = sumTesting + array[i]; 
-			
+			printf("array[%d] is now %d.\n",j,array[j]);
 		}
-	}
-	sumPositive(array, SIZE, &sumResult);
-	printf("The sum of all positive values in the array should be: %d\nThe value returned by sumPositive is: %d\n\n",sumTesting,sumResult);
-}
+		
+        //Multiply the even elements of the array
+        int multiplyCount = multiplyEven(array, size, multiplicand); //Multiply even elements of the array
+        printf("\nNumber of even elements multiplied: %d\n", multiplyCount);
+
+        //Free the array
+        freeArray(&array); //Free the memory allocated for the array
+    }
 	
+    else
+    {
+        printf("MAIN: Array allocation failed!\n"); //Print an error message if array allocation fails
+    }
+}
